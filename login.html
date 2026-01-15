@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - BarberFlow</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 20px;
+        }
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-logo {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        .login-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .login-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+        .test-accounts {
+            background: #f0f8ff;
+            border-left: 4px solid #4cc9f0;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        .test-account {
+            margin-bottom: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .test-account:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+        .login-links {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        .login-links a {
+            color: #4cc9f0;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fas fa-cut"></i>
+                BarberFlow
+            </div>
+            <div class="login-subtitle">Sistema de Gerenciamento para Barbearias</div>
+            <div class="login-title">🔑 Acesso ao Sistema</div>
+            
+            <div class="test-accounts">
+                <h4 style="color: #1a1a2e; margin-bottom: 10px; font-size: 14px;">
+                    <i class="fas fa-key"></i> Contas para Teste (senha: 123456)
+                </h4>
+                <div class="test-account" onclick="fillCredentials('admin@barberflow.com', '123456')">
+                    <div style="font-weight: 500; color: #1a1a2e;">👑 Administrador</div>
+                    <div style="font-size: 12px; color: #666;">admin@barberflow.com</div>
+                </div>
+                <div class="test-account" onclick="fillCredentials('barbeiro@barberflow.com', '123456')">
+                    <div style="font-weight: 500; color: #1a1a2e;">✂️ Barbeiro</div>
+                    <div style="font-size: 12px; color: #666;">barbeiro@barberflow.com</div>
+                </div>
+                <div class="test-account" onclick="fillCredentials('cliente@barberflow.com', '123456')">
+                    <div style="font-weight: 500; color: #1a1a2e;">👤 Cliente</div>
+                    <div style="font-size: 12px; color: #666;">cliente@barberflow.com</div>
+                </div>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        E-mail
+                    </label>
+                    <input type="email" id="email" class="form-control" 
+                           placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-lock"></i>
+                        Senha
+                    </label>
+                    <div class="password-container">
+                        <input type="password" id="password" 
+                               class="form-control" placeholder="Sua senha" required>
+                        <button type="button" class="toggle-password" onclick="togglePassword()">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox">
+                        <input type="checkbox" id="remember">
+                        <span>Lembrar-me</span>
+                    </label>
+                    <a href="#" class="forgot-password" style="color: #4cc9f0; text-decoration: none; font-size: 14px;">
+                        Esqueceu a senha?
+                    </a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Entrar no Sistema
+                </button>
+            </form>
+            
+            <div class="login-links">
+                <p>Não tem uma conta? <a href="register.html">Crie uma agora</a></p>
+                <p>Primeira vez? <a href="setup.html">Configure o sistema</a></p>
+                <p><a href="../index.html"><i class="fas fa-home"></i> Voltar para Home</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+        
+        function fillCredentials(email, password) {
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = password;
+            
+            // Destacar a conta selecionada
+            const accounts = document.querySelectorAll('.test-account');
+            accounts.forEach(account => {
+                account.style.background = '#e3f2fd';
+                account.style.border = '1px solid #4cc9f0';
+            });
+            event.currentTarget.style.background = '#4cc9f0';
+            event.currentTarget.style.color = 'white';
+        }
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Simulação de login
+            if (email && password) {
+                alert('Login realizado com sucesso! Redirecionando para dashboard...');
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Por favor, preencha todos os campos.');
+            }
+        });
+        
+        // Auto-focus no campo de e-mail
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('email').focus();
+        });
+    </script>
+</body>
+</html>

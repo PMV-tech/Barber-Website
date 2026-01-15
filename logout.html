@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout - BarberFlow</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .logout-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 20px;
+        }
+        .logout-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .logout-icon {
+            font-size: 64px;
+            color: #4cc9f0;
+            margin-bottom: 20px;
+        }
+        .logout-message {
+            margin-bottom: 30px;
+        }
+        .logout-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logout-container">
+        <div class="logout-box">
+            <div class="logout-icon">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <h2 style="color: #1a1a2e; margin-bottom: 10px;">
+                Saindo do Sistema
+            </h2>
+            <div class="logout-message">
+                <p style="color: #666; margin-bottom: 15px;">
+                    Você está saindo do BarberFlow. Tem certeza que deseja continuar?
+                </p>
+                <p style="color: #888; font-size: 14px;">
+                    Será necessário fazer login novamente para acessar o sistema.
+                </p>
+            </div>
+            
+            <div class="logout-actions">
+                <button class="btn btn-danger btn-lg" onclick="performLogout()">
+                    <i class="fas fa-sign-out-alt"></i> Confirmar Logout
+                </button>
+                <a href="dashboard.html" class="btn btn-outline btn-lg">
+                    <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+                </a>
+            </div>
+            
+            <div class="mt-30" style="border-top: 1px solid #eee; padding-top: 20px;">
+                <p style="color: #666; font-size: 14px;">
+                    <i class="fas fa-info-circle"></i>
+                    Esta é uma demonstração. Em um sistema real, a sessão seria encerrada no servidor.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        function performLogout() {
+            // Simular logout
+            localStorage.removeItem('userLoggedIn');
+            sessionStorage.removeItem('userToken');
+            
+            // Mostrar mensagem e redirecionar
+            alert('Você foi desconectado com sucesso!');
+            window.location.href = 'login.html';
+        }
+        
+        // Auto-redirecionar após 30 segundos de inatividade
+        let inactivityTimer;
+        
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                if (confirm('Sessão inativa. Deseja continuar conectado?')) {
+                    resetInactivityTimer();
+                } else {
+                    performLogout();
+                }
+            }, 30000); // 30 segundos
+        }
+        
+        // Configurar detectores de atividade
+        document.addEventListener('DOMContentLoaded', function() {
+            resetInactivityTimer();
+            
+            document.addEventListener('mousemove', resetInactivityTimer);
+            document.addEventListener('keypress', resetInactivityTimer);
+            document.addEventListener('click', resetInactivityTimer);
+        });
+    </script>
+</body>
+</html>
