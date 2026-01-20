@@ -524,7 +524,7 @@
         
         // Verificar status do sistema
         function checkSystemStatus() {
-            fetch('config.html')
+            fetch('../config_db/config.html')
                 .then(response => {
                     if (!response.ok) {
                         console.log('Sistema não configurado');
@@ -564,15 +564,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
